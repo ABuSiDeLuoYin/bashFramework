@@ -42,7 +42,7 @@ declare -i ARR_INDEX=0
 declare -A SCRIPTS_MAP
 for file in ${SCRIPTS_LIST[*]}
 do
-	SCRIPTS_MAP["${file}"]=$(sh ${COMBINED_PATH}/${file} -n)
+	SCRIPTS_MAP["${file}"]=$(sh ${COMBINED_PATH}/${file} -d)
 	SCRIPTS_ARR[${ARR_INDEX}]="${file}"
 	let ARR_INDEX=${ARR_INDEX}+1
 done
