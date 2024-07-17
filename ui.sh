@@ -91,7 +91,7 @@ function execute(){
 				printScripts
 				;;
 			esc|ESC)
-				echo -e "\033[1A\033[J脚本退出"
+				echo -en "\033[1A\033[J脚本退出"
 				exit 0
 				;;
 			*)
