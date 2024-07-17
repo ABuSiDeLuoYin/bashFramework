@@ -54,6 +54,26 @@ set +o errexit
 set +o pipefail
 #set +e
 echo -e "${lightgreen}${SPLIT_STR}初始化完成${origin}"
+#打印脚本列表的方法
+function printScripts(){
+	# 首先，使用tput移动光标到第1行的第0个位置
+	tput cup 0 0
+	# 然后，清除从当前位置到屏幕底部的所有内容
+	tput el; tput cnorm; tput sc; tput rc; tput ed
+	# 备用方案
+	#光标上移8行,并移到行首,然后清除光标到底部的内容
+	#echo -e "\033[8A\033[J"
+	echo -e "${lightgreen}${SPLIT_STR}${SPLIT_STR}${SPLIT_STR}${origin}"
+	for((i=0 ; i < ${ARR_LENGTH};i++))
+	do
+		DESCRIPTION="${SCRIPTS_MAP[${SCRIPTS_ARR[${i}]}]}"
+		echo -e "输入${lightblue}${i}${origin}  \t  \t${DESCRIPTION}"
+	done
+	echo -e "输入${lightblue}m或M${origin} \t重新展示本列表信息"
+	echo -e "输入${lightblue}esc或ESC${origin} \t退出"
+	echo -e "${lightgreen}${SPLIT_STR}${SPLIT_STR}${SPLIT_STR}${origin}"
+}
+
 function execute(){
 	if [ $1 ];then
 		#解决输入不在列表中任意选项时会执行第一个菜单中的脚本的问题,限制只对输入数字做处理
@@ -67,25 +87,22 @@ function execute(){
 					echo -e "${red}请输入正确的菜单列表选项${origin}"
 				fi
 				;;
+			[mM])
+				printScripts
+				;;
+			esc|ESC)
+				echo -e "\033[1A\033[J脚本退出"
+				exit 0
+				;;
 			*)
 				echo -e "${red}请输入正确的菜单列表选项${origin}"
 				;;
 		esac
 	fi
-	#重新打印列表
-	echo -e "${lightgreen}${SPLIT_STR}${SPLIT_STR}${SPLIT_STR}${origin}"
-	for((i=0 ; i < ${ARR_LENGTH};i++))
-	do
-		DESCRIPTION="${SCRIPTS_MAP[${SCRIPTS_ARR[${i}]}]}"
-		echo -e "输入${lightblue}${i}${origin}  \t  \t${DESCRIPTION}"
-	done
-		echo -e "按下${lightblue}999${origin} \t重新展示本列表信息"
-		echo -e "${lightgreen}${SPLIT_STR}${SPLIT_STR}${SPLIT_STR}${origin}"
-
 }
 echo -e "${lightgreen}${SPLIT_STR}输入对应菜单前的数字即可使用对应功能${origin}"
-#打印功能列表
-execute
+#打印脚本功能列表
+printScripts
 
 while true ;do
 	#可超时120秒
