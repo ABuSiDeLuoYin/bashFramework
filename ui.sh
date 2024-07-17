@@ -56,9 +56,9 @@ set +o pipefail
 echo -e "${lightgreen}${SPLIT_STR}初始化完成${origin}"
 #打印脚本列表的方法
 function printScripts(){
-	# 首先，使用tput移动光标到第1行的第0个位置
+	# 首先,使用tput移动光标到第1行的第0个位置
 	tput cup 0 0
-	# 然后，清除从当前位置到屏幕底部的所有内容
+	# 然后,清除从当前位置到屏幕底部的所有内容
 	tput el; tput cnorm; tput sc; tput rc; tput ed
 	# 备用方案
 	#光标上移8行,并移到行首,然后清除光标到底部的内容

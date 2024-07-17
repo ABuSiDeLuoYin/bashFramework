@@ -1,0 +1,10 @@
+#IDEA
+.idea/
+*.iml
+#Visual Studio Code
+.vscode/
+
+#Eclipse
+.eclipse/
+
+#General
